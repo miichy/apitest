@@ -17,4 +17,10 @@ public class LoginParam extends BaseRequestUrl {
         buildInterface(InterfaceEnum.LOGIN.getName());
     }
 
+    public String getURL(){
+        buildInterface();
+        System.out.println("===" +getRequestURL());
+        return getRequestURL();
+    }
+
 }

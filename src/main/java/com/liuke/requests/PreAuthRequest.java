@@ -1,23 +1,33 @@
 package com.liuke.requests;
 
+import com.liuke.params.PreAuthParam;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
 import java.io.IOException;
+import java.util.HashMap;
 
 public class PreAuthRequest extends BaseRequest{
 
     public PreAuthRequest(){}
 
-    public String run(String url) throws IOException {
-        Request request = new Request.Builder()
-                .url(url)
-                .build();
+    private PreAuthParam param = new PreAuthParam();
 
-        try (Response response = client.newCall(request).execute()) {
-            return response.body().string();
-        }
+    public PreAuthParam getParam() {
+        return param;
     }
+
+    public void setParam(PreAuthParam param) {
+        this.param = param;
+    }
+
+    public String doRequest() throws IOException {
+        String url = param.getURL();
+        String response = get(url);
+        System.out.println(" do request response: "+ response);
+        return response;
+    }
+
 
 }

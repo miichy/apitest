@@ -3,7 +3,7 @@ package com.liuke.bases;
 import org.apache.commons.lang.StringUtils;
 
 public enum InterfaceEnum {
-    PRE_AUTH("preAuth","the interface of PreAuth"),
+    PRE_AUTH("s","the interface of PreAuth"),
     OPEN("open","the open interface"),
     LOGIN("login","the login interface");
 

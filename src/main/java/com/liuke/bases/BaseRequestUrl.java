@@ -1,16 +1,14 @@
 package com.liuke.bases;
 
-import com.liuke.requests.BaseRequest;
-
 import java.util.HashMap;
 import java.util.Iterator;
 
 public class BaseRequestUrl {
 
     private String protocol = "http://";
-    private String serverName = "127.0.0.1";
+    private String serverName = "www.baidu.com";
     private int serverPort = 80;
-    private String requestUri = "/liuke/apitest/";
+    private String requestUri = "/";
 
     private StringBuilder requestURL = new StringBuilder();
 
@@ -36,12 +34,14 @@ public class BaseRequestUrl {
         System.out.println("********** initial requestURL: ***** " + requestURL.toString());
     }
 
-    public void buildInterface(String interfaceName){
-        requestURL.append(interfaceName)
-                  .append("?");
+    protected void buildInterface(String interfaceName){
+        StringBuilder sb = new StringBuilder();
+        sb.append(interfaceName)
+          .append("?");
+        requestURL.append(sb);
     }
 
-    public void buildParams(HashMap<String ,String > maps){
+    protected void buildParams(HashMap<String ,String > maps){
         StringBuilder sb = new StringBuilder();
         Iterator<String> it = maps.keySet().iterator();
         while(it.hasNext()){
@@ -70,7 +70,7 @@ public class BaseRequestUrl {
         return sb.toString();
     }
 
-    public String getRequestURL(){
+    protected String getRequestURL(){
         return requestURL.toString();
     }
 

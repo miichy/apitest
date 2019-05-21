@@ -4,7 +4,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.liuke.entity.Account;
 import com.liuke.params.LoginParam;
+import com.liuke.params.OpenParam;
 import com.liuke.params.PreAuthParam;
+import com.liuke.requests.LoginRequest;
 import com.liuke.requests.OpenRequest;
 import com.liuke.requests.PreAuthRequest;
 import org.testng.Assert;
@@ -27,17 +29,16 @@ public class AccountOpenAndLogin {
         params.put("token","!@#$%%");
 
         PreAuthParam preAuthParam = new PreAuthParam();
-        preAuthParam.buildInterface();
-        preAuthParam.buildParams(params);
-        System.out.println(preAuthParam.getRequestURL());
+        preAuthParam.setMaps(params);
+        mockRequest.setParam(preAuthParam);
 
+        // test json function
         String jsonStr = "{\"name\":\"小民\",\"age\":20,\"birthday\":844099200000,\"email\":\"xiaomin@sina.com\",\"token\":\"jkldsafdsfjalfds\"}";
-
         Account account = objectMapper.readValue(jsonStr,Account.class);
         String accountStr = objectMapper.writeValueAsString(account);
 
-        when(mockRequest.run(preAuthParam.getRequestURL())).thenReturn(accountStr);
-        String response = mockRequest.run(preAuthParam.getRequestURL());
+        when(mockRequest.doRequest()).thenReturn(accountStr);
+        String response = mockRequest.doRequest();
         System.out.println(response);
 
         return response;
@@ -45,24 +46,23 @@ public class AccountOpenAndLogin {
 
     public String getToken(String response) throws IOException {
         JsonNode node = objectMapper.readTree(response);
-        System.out.println(node.get("name").asText());
-        return node.get("name").asText();
+        System.out.println(node.get("token").asText());
+        return node.get("token").asText();
     }
 
     public String doOpenRequest(String token) throws IOException {
         HashMap<String ,String> params = new HashMap<>();
         params.put("token",token);
-        LoginParam loginParam = new LoginParam();
-        loginParam.buildInterface();
-//        loginParam.buildParams(params);
-        String json = loginParam.buildJsonParam(params);
 
-        System.out.println(loginParam.getRequestURL());
-        System.out.println(json);
+        OpenParam openParam = new OpenParam();
+        openParam.setMaps(params);
 
         OpenRequest openRequest = mock(OpenRequest.class);
-        when(openRequest.post(loginParam.getRequestURL(),json)).thenReturn("SUCCESS");
-        String response = openRequest.post(loginParam.getRequestURL(),json);
+        openRequest.setOpenParam(openParam);
+
+
+        when(openRequest.doRequest()).thenReturn("SUCCESS");
+        String response = openRequest.doRequest();
         System.out.println(response);
         return response;
     }
