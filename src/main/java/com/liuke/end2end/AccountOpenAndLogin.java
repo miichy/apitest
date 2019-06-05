@@ -67,13 +67,28 @@ public class AccountOpenAndLogin {
         return response;
     }
 
+    public String doLoginRequest() throws IOException{
+        HashMap<String ,String> params = new HashMap<>();
+        params.put("name","abcname");
+        params.put("pswd","mypasword");
+
+        LoginParam loginParam = new LoginParam();
+        loginParam.setMaps(params);
+
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setLoginParam(loginParam);
+
+        return loginRequest.doRequest();
+
+    }
+
     public static void main(String[] args) throws IOException {
         AccountOpenAndLogin aa = new AccountOpenAndLogin();
         String response = aa.doPreAuthRequest();
         String openResponse = aa.doOpenRequest(aa.getToken(response));
         Assert.assertEquals(openResponse,"SUCCESS");
 
-        //TODO use the preauth response to open and then login
+        System.out.println(aa.doLoginRequest());
 
     }
 

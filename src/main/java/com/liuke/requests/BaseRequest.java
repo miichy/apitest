@@ -4,7 +4,7 @@ import okhttp3.*;
 
 import java.io.IOException;
 
-public class BaseRequest {
+public abstract class BaseRequest {
 
     public OkHttpClient client = new OkHttpClient();
 

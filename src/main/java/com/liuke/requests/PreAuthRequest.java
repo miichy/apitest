@@ -23,7 +23,7 @@ public class PreAuthRequest extends BaseRequest{
     }
 
     public String doRequest() throws IOException {
-        String url = param.getURL();
+        String url = param.requestURL();
         String response = get(url);
         System.out.println(" do request response: "+ response);
         return response;

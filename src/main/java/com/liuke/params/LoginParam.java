@@ -1,26 +1,32 @@
 package com.liuke.params;
 
+import com.liuke.bases.BasePath;
 import com.liuke.bases.BaseRequestUrl;
 import com.liuke.bases.InterfaceEnum;
 
-public class LoginParam extends BaseRequestUrl {
+import java.util.HashMap;
+import java.util.Iterator;
 
-    public LoginParam(){
-        super();
+public class LoginParam extends AbstractParam {
+
+    private HashMap<String ,String > maps = new HashMap<>();
+
+    @Override public HashMap<String, String> getMaps() {
+        return maps;
     }
 
-    public LoginParam(String protocol,String serverName,int serverPort,String requestUri){
-        super( protocol, serverName, serverPort, requestUri);
+    @Override public InterfaceEnum getInterfaceEnum() {
+        return InterfaceEnum.LOGIN;
     }
 
-    public void buildInterface(){
-        buildInterface(InterfaceEnum.LOGIN.getName());
+    @Override public HashMap<String, String> getJsonMaps() {
+        return null;
     }
 
-    public String getURL(){
-        buildInterface();
-        System.out.println("===" +getRequestURL());
-        return getRequestURL();
+    public void setMaps(HashMap<String, String> maps) {
+        this.maps = maps;
     }
+
+
 
 }

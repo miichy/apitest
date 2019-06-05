@@ -19,8 +19,8 @@ public class OpenRequest extends BaseRequest{
     }
 
     public String doRequest() throws IOException {
-        String url = openParam.getURL();
-        String json = openParam.buildJsonParam();
+        String url = openParam.requestURL();
+        String json = openParam.buildJsonParam(openParam.getJsonMaps()).toString();
         String response = post(url,json);
         return response;
     }

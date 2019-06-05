@@ -1,15 +1,14 @@
 package com.liuke.params;
 
-import com.liuke.bases.BaseRequestUrl;
 import com.liuke.bases.InterfaceEnum;
 
 import java.util.HashMap;
 
-public class OpenParam  extends BaseRequestUrl {
+public class OpenParam  extends AbstractParam {
 
     private HashMap<String,String> maps = new HashMap<>();
 
-    public HashMap<String, String> getMaps() {
+    @Override public HashMap<String, String> getMaps() {
         return maps;
     }
 
@@ -17,24 +16,12 @@ public class OpenParam  extends BaseRequestUrl {
         this.maps = maps;
     }
 
-    public OpenParam(){
-        super();
+    @Override public InterfaceEnum getInterfaceEnum() {
+        return InterfaceEnum.OPEN;
     }
 
-    public OpenParam(String protocol,String serverName,int serverPort,String requestUri){
-        super( protocol, serverName, serverPort, requestUri);
+    @Override public HashMap<String, String> getJsonMaps() {
+        return maps;
     }
 
-    public void buildInterface(){
-        buildInterface(InterfaceEnum.OPEN.getName());
-    }
-
-    public String buildJsonParam(){
-       return buildJsonParam(maps);
-    }
-
-    public String getURL(){
-        buildInterface();
-        return getRequestURL();
-    }
 }

@@ -5,11 +5,11 @@ import com.liuke.bases.InterfaceEnum;
 
 import java.util.HashMap;
 
-public class PreAuthParam extends BaseRequestUrl{
+public class PreAuthParam extends AbstractParam{
 
     private HashMap<String,String> maps = new HashMap<>();
 
-    public HashMap<String, String> getMaps() {
+    @Override public HashMap<String, String> getMaps() {
         return maps;
     }
 
@@ -17,25 +17,12 @@ public class PreAuthParam extends BaseRequestUrl{
         this.maps = maps;
     }
 
-    public PreAuthParam(){
-        super();
+    @Override public InterfaceEnum getInterfaceEnum() {
+        return InterfaceEnum.PRE_AUTH;
     }
 
-    public PreAuthParam(String protocol,String serverName,int serverPort,String requestUri){
-        super( protocol, serverName, serverPort, requestUri);
-    }
-
-    private void buildInterface(){
-        buildInterface(InterfaceEnum.PRE_AUTH.getName());
-    }
-
-    public String getURL(){
-        buildInterface();
-        if (maps != null){
-            buildParams(maps);
-        }
-        System.out.println("===" +getRequestURL());
-        return getRequestURL();
+    @Override public HashMap<String, String> getJsonMaps() {
+        return null;
     }
 
 }
